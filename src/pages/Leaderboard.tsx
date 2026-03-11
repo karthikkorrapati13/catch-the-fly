@@ -17,7 +17,7 @@ export default function Leaderboard() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://catch-the-fly.onrender.com/api/leaderboard?mode=${mode}`)
+  fetch(`https://catch-the-fly.onrender.com/api/leaderboard?mode=${mode}`)
       .then(res => res.json())
       .then(data => {
         setLeaderboard(data);
