@@ -39,27 +39,54 @@ export default function Signup() {
 
     setLoading(true);
 
-    const controller = new AbortController();
-    const timeoutid = setTimeout(()=> controller.abort(),15000);
+  const controller = new AbortController();
+const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-   try {
-  const res = await apiFetch("/api/registe", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, email, country, phoneNumber, password }),
-    signal:controller.signal
+try {
+
+  const res = await apiFetch("/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username,
+      email,
+      country,
+      phoneNumber,
+      password
+    }),
+    signal: controller.signal
   });
-  clearTimeout(timeoutid);
 
-  const data = await res.json();
+  clearTimeout(timeoutId);
 
-  if (!res.ok) throw new Error(data.error || 'Something went wrong');
+  const text = await res.text();
 
-  navigate('/login');
+  if (!text) {
+    throw new Error("Server returned empty response");
+  }
+
+  const data = JSON.parse(text);
+
+  if (!res.ok) {
+    throw new Error(data.error || "Signup failed");
+  }
+
+  navigate("/login");
+
 } catch (err: any) {
-  setError(err.message);
+
+  if (err.name === "AbortError") {
+    setError("Server took too long to respond.");
+  } else {
+    setError(err.message);
+  }
+
+} finally {
+  setLoading(false);
 }
-  };
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
