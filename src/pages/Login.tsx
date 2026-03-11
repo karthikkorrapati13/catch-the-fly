@@ -19,12 +19,17 @@ export default function Login() {
     setError('');
     setLoading(true);
 
+    const controller = new AbortController();
+    const timeoutid = setTimeout(()=> controller.abort(),15000);
+
     try {
       const res = await apiFetch("/api/login", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier, password }),
+        signal:controller.signal
       });
+      clearTimeout(timeoutid);
       const data = await res.json();
       
       if (!res.ok) throw new Error(data.error || 'username or password mismatch');

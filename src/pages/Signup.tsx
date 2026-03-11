@@ -39,12 +39,17 @@ export default function Signup() {
 
     setLoading(true);
 
+    const controller = new AbortController();
+    const timeoutid = setTimeout(()=> controller.abort(),15000);
+
    try {
   const res = await apiFetch("/api/registe", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, email, country, phoneNumber, password }),
+    signal:controller.signal
   });
+  clearTimeout(timeoutid);
 
   const data = await res.json();
 

@@ -146,6 +146,8 @@ export default function Game() {
     }
     
     if (score > 0 && user) {
+      const controller = new AbortController();
+    const timeoutid = setTimeout(()=> controller.abort(),15000);
       try {
         await apiFetch("api/submit-score", {
           method: 'POST',
@@ -158,8 +160,10 @@ export default function Game() {
             mode,
             play_time: 60 - timeLeft,
             device_type: navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'
-          })
+          }),
+          signal:controller.signal
         });
+        clearTimeout(timeoutid);
       } catch (err) {
         console.error('Failed to submit score:', err);
       }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trophy, ArrowLeft, Medal } from 'lucide-react';
+import { Trophy, ArrowLeft, Medal, Signal } from 'lucide-react';
 import { motion } from 'motion/react';
 import {apiFetch} from "../api";
 
@@ -18,10 +18,17 @@ export default function Leaderboard() {
 
 
   useEffect(() => {
+    const controller = new AbortController();
+    const timeoutid = setTimeout(()=> controller.abort(),15000);
     setLoading(true);
-  apiFetch("/api/leaderboard?mode=${mode}")
+  apiFetch("/api/leaderboard?mode=${mode}",{
+    signal:controller.signal
+
+  })
+
       .then(res => res.json())
       .then(data => {
+        clearTimeout(timeoutid);
         setLeaderboard(data);
         setLoading(false);
       })

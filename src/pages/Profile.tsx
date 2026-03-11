@@ -28,14 +28,18 @@ export default function Profile() {
       navigate('/login');
       return;
     }
+    const controller = new AbortController();
+    const timeoutid = setTimeout(()=> controller.abort(),15000);
 
     apiFetch("api/profile/${user.id}", {
       headers: {
         'Authorization': `Bearer ${token}`
-      }
+      },
+      signal:controller.signal
     })
       .then(res => res.json())
       .then(data => {
+        clearTimeout(timeoutid);
         setProfile(data);
         setLoading(false);
       })
