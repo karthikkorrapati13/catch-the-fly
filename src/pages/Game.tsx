@@ -146,7 +146,7 @@ export default function Game() {
     
     if (score > 0 && user) {
       try {
-        await fetch('/api/submit-score', {
+        await fetch('https://catch-the-fly.onrender.com/api/submit-score', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

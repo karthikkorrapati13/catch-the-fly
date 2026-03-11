@@ -38,23 +38,21 @@ export default function Signup() {
 
     setLoading(true);
 
-    try {
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, country, phoneNumber, password }),
-      });
-      const data = await res.json();
-      
-      if (!res.ok) throw new Error(data.error || 'Something went wrong');
-      
-      // Successfully created account, redirect to login
-      navigate('/login');
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+   try {
+  const res = await fetch('https://catch-the-fly.onrender.com/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, email, country, phoneNumber, password }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) throw new Error(data.error || 'Something went wrong');
+
+  navigate('/login');
+} catch (err: any) {
+  setError(err.message);
+}
   };
 
   return (

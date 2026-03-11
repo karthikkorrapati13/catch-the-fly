@@ -27,7 +27,7 @@ export default function Profile() {
       return;
     }
 
-    fetch(`/api/profile/${user.id}`, {
+    fetch(`https://catch-the-fly.onrender.com/api/profile/${user.id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
