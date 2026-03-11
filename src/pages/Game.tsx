@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useAudio } from '../context/AudioContext';
 import { Bug, Pause, Play, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { apiFetch } from '../api';
 
 const MISS_MESSAGES = [
   "You missed again 🤡",
@@ -146,7 +147,7 @@ export default function Game() {
     
     if (score > 0 && user) {
       try {
-        await fetch('https://catch-the-fly.onrender.com/api/submit-score', {
+        await apiFetch("api/submit-score", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bug, UserPlus, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { motion } from 'motion/react';
-import {API} from "../api";
+import {apiFetch} from "../api";
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -40,7 +40,7 @@ export default function Signup() {
     setLoading(true);
 
    try {
-  const res = await fetch(`${API}/api/register`, {
+  const res = await apiFetch("/api/registe", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, email, country, phoneNumber, password }),

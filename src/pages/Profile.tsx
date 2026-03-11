@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { User, ArrowLeft, Activity, Trophy, Calendar, Star } from 'lucide-react';
 import { motion } from 'motion/react';
+import { apiFetch } from '../api';
+
 
 interface UserProfile {
   username: string;
@@ -27,7 +29,7 @@ export default function Profile() {
       return;
     }
 
-    fetch(`https://catch-the-fly.onrender.com/api/profile/${user.id}`, {
+    apiFetch("api/profile/${user.id}", {
       headers: {
         'Authorization': `Bearer ${token}`
       }

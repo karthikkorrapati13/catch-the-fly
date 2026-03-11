@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Trophy, ArrowLeft, Medal } from 'lucide-react';
 import { motion } from 'motion/react';
-import {API} from "../api";
+import {apiFetch} from "../api";
 
 interface ScoreEntry {
   username: string;
@@ -19,7 +19,7 @@ export default function Leaderboard() {
 
   useEffect(() => {
     setLoading(true);
-  fetch(`${API}/api/leaderboard?mode=${mode}`)
+  apiFetch("/api/leaderboard?mode=${mode}")
       .then(res => res.json())
       .then(data => {
         setLeaderboard(data);

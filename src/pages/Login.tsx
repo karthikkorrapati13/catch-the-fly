@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Bug, LogIn, User, ArrowLeft } from 'lucide-react';
 import { motion } from 'motion/react';
-import {API} from "../api";
+import {apiFetch} from "../api";
 
 export default function Login() {
   const [identifier, setIdentifier] = useState('');
@@ -20,7 +20,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API}/api/login`, {
+      const res = await apiFetch("/api/login", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier, password }),
