@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Trophy, ArrowLeft, Medal } from 'lucide-react';
 import { motion } from 'motion/react';
+import {API} from "../api";
 
 interface ScoreEntry {
   username: string;
@@ -15,9 +16,10 @@ export default function Leaderboard() {
   const [mode, setMode] = useState('beginner');
   const navigate = useNavigate();
 
+
   useEffect(() => {
     setLoading(true);
-  fetch(`https://catch-the-fly.onrender.com/api/leaderboard?mode=${mode}`)
+  fetch(`${API}/api/leaderboard?mode=${mode}`)
       .then(res => res.json())
       .then(data => {
         setLeaderboard(data);
