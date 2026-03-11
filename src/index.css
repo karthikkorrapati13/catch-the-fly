@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-sky-blue: #87CEEB;
+  --color-yellow: #FFD700;
+  
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+@keyframes fly-flap {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.5); }
+}
+
+@keyframes hit-squash {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2, 0.8); }
+  100% { transform: scale(0.8, 1.2); opacity: 0; }
+}
+
+@keyframes miss-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px) rotate(-5deg); }
+  50% { transform: translateX(10px) rotate(5deg); }
+  75% { transform: translateX(-10px) rotate(-5deg); }
+}
+
+@keyframes score-pop {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+}
+
+@keyframes button-glow {
+  0%, 100% { box-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700; }
+  50% { box-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700; }
+}
+
+@keyframes gradient-sky {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-fly-flap { 
+  animation: fly-flap 0.1s infinite; 
+  will-change: transform;
+}
+.animate-hit-squash { 
+  animation: hit-squash 0.3s forwards; 
+  will-change: transform, opacity;
+}
+.animate-miss-shake { 
+  animation: miss-shake 0.4s ease-in-out; 
+  will-change: transform;
+}
+.animate-score-pop { animation: score-pop 0.8s forwards; }
+.animate-button-glow { animation: button-glow 2s infinite; }
+
+.bg-animated-sky {
+  background: linear-gradient(-45deg, #87CEEB, #4A90E2, #87CEEB, #FFD700);
+  background-size: 400% 400%;
+  animation: gradient-sky 15s ease infinite;
+}
+
+body {
+  font-family: 'Comic Neue', cursive;
+  margin: 0;
+  overflow: hidden;
+}
+
+h1, h2, h3, .bangers-font {
+  font-family: 'Bangers', cursive;
+  letter-spacing: 2px;
+}
